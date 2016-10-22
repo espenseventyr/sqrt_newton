@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"os"
 	"strconv"
@@ -19,7 +20,13 @@ func Sqrt(x float64) float64 {
 
 func main() {
 	for _, arg := range os.Args[1:] {
-		arg_float, _ := strconv.ParseFloat(arg, 64)
+		arg_float, err := strconv.ParseFloat(arg, 64)
+		if err != nil {
+			log.Fatalf("strconv.ParseFloat: %v", err)
+		}
 		fmt.Printf("%.30f\n", Sqrt(arg_float))
+	}
+	if len(os.Args) == 1 {
+		log.Fatalf("Nothing to square!")
 	}
 }
